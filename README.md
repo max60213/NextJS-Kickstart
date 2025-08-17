@@ -158,26 +158,45 @@ const getArticle = async (id: string) => {
 ```
 nextjs-kickstart/
 ├── app/                    # Next.js App Router
-│   ├── globals.css        # 全域樣式
-│   ├── layout.tsx         # 根佈局
-│   └── page.tsx           # 首頁
+│   └── [locale]/          # 國際化路由層級
+│       ├── globals.css    # 全域樣式
+│       ├── layout.tsx     # 根佈局
+│       ├── page.tsx       # 首頁
+│       ├── about/         # 關於頁面
+│       │   └── page.tsx
+│       ├── news/          # 新聞頁面
+│       │   ├── page.tsx   # 新聞列表
+│       │   └── [slug]/    # 單篇新聞
+│       │       └── page.tsx
+│       └── components/    # 共用元件
+│           ├── Navigation.tsx
+│           ├── LocaleSwitcher.tsx
+│           └── LocaleSwitcherSelect.tsx
+├── i18n/                   # 國際化配置
+│   ├── navigation.ts
+│   ├── request.ts
+│   └── routing.ts
+├── messages/               # 多語言訊息
+│   ├── en.json
+│   └── zh-TW.json
 ├── public/                 # 靜態資源
 │   ├── next.svg           # Next.js logo
 │   ├── vercel.svg         # Vercel logo
 │   └── ...                # 其他 SVG 圖示
 ├── package.json            # 專案依賴
 ├── next.config.ts          # Next.js 配置
-├── tailwind.config.js      # Tailwind CSS 配置
+├── postcss.config.mjs      # PostCSS 配置
 ├── tsconfig.json           # TypeScript 配置
+├── middleware.ts           # 國際化中間件
 └── README.md               # 專案說明
 ```
 
 ## 🎯 使用指南
 
 ### 添加新頁面
-在 `app/` 目錄下創建新的資料夾和 `page.tsx` 檔案：
+在 `app/[locale]/` 目錄下創建新的資料夾和 `page.tsx` 檔案：
 ```tsx
-// app/about/page.tsx
+// app/[locale]/about/page.tsx
 export default function AboutPage() {
   return <div>關於我們</div>
 }
