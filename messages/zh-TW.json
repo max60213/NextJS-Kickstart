@@ -1,21 +1,24 @@
 {
-    "Navigation": {
-        "home": "首頁",
-        "about": "關於",
-        "news": "新聞"
-    },
-    "LocaleSwitcher": {
-        "label": "切換語言",
-        "locale": "{locale, select, en {🇺🇸 English} zh-TW {🇹🇼 繁體中文} other {Unknown}}"
-    },
-    "HomePage": {
-        "title": "你好，世界！",
-        "about": "前往關於頁面"
-    },
-    "NewsPage": {
-        "title": "新聞"
-    },
-    "AboutPage": {
-        "title": "關於"
+  "Navigation": {
+    "home": "首頁",
+    "more": {
+      "title": "更多",
+      "about": "關於",
+      "news": "新聞"
     }
+  },
+  "HomePage": {
+    "title": "你好，世界！",
+    "about": "前往關於頁面"
+  },
+  "NewsPage": {
+    "title": "新聞"
+  },
+  "AboutPage": {
+    "title": "關於"
+  },
+  "ArticlePage": {
+    "publishedOn": "發佈於 {date}",
+    "backToNews": "回到新聞"
+  }
 }

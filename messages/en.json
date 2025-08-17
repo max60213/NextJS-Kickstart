@@ -1,12 +1,15 @@
 {
     "Navigation": {
         "home": "Home",
-        "about": "About",
-        "news": "News"
+        "more": {
+          "title": "More",
+          "about": "About",
+          "news": "News"
+        }
     },
     "LocaleSwitcher": {
       "label": "Change language",
-      "locale": "{locale, select, de {🇩🇪 Deutsch} en {🇺🇸 English} zh-TW {🇹🇼 繁體中文} other {Unknown}}"
+      "locale": "{locale, select, en {English} zh_TW {繁體中文} other {Unknown}}"
     },
     "HomePage": {
       "title": "Hello world!",
@@ -17,5 +20,9 @@
     },
     "AboutPage": {
         "title": "About"
+    },
+    "ArticlePage": {
+        "publishedOn": "Published on {date}",
+        "backToNews": "Back to News"
     }
   }

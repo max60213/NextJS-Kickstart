@@ -1,0 +1,16 @@
+@import "../_variables.css";
+
+/* Example usage of responsive mixins */
+.test {
+  color: blue;
+  
+  @mixin sm-down {
+    color: red;
+    font-size: 14px;
+  }
+  
+  @mixin md-up {
+    color: green;
+    font-size: 18px;
+  }
+}
