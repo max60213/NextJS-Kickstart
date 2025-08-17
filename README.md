@@ -9,6 +9,7 @@
 - **TypeScript** - 完整的類型安全支援
 - **Tailwind CSS 4** - 現代化的 CSS 框架
 - **國際化支援** - 使用 `next-intl` 進行多語言支援
+- **Headless CMS** - 整合 `Strapi`，附帶新聞列表與文章頁範例
 - **動畫系統** - 整合 GSAP 和 Lenis 實現流暢的滾動動畫
 - **3D 支援** - Three.js 整合，支援 3D 內容
 - **響應式設計** - 支援觸控友好的互動體驗
@@ -37,6 +38,9 @@
 
 ### 國際化
 - **next-intl** `^4.3.4` - Next.js 國際化解決方案
+
+### 資料來源
+- **Strapi CMS** - Headless CMS，提供內容管理與 API 供應
 
 ### 開發工具
 - **ESLint** `^9` - 程式碼品質檢查
@@ -73,6 +77,81 @@ npm start
 ```bash
 npm run lint
 ```
+
+## 🧰 Strapi CMS 整合
+
+本專案已內建與 Strapi 的整合範例：`app/[locale]/news/page.tsx`（文章列表）與 `app/[locale]/news/[slug]/page.tsx`（單篇文章）。
+
+### 1) 環境變數
+
+請新增 `.env.local` 並設定 CMS API URL（擇一）：
+
+```bash
+# 本機 Strapi（預設 port 1337）
+NEXT_PUBLIC_API_URL=http://localhost:1337
+
+# 或：雲端/自架 CMS 網域
+# NEXT_PUBLIC_API_URL=https://cms.your-domain.com
+```
+
+### 2) 圖片網域白名單
+
+若你使用 CMS 上傳圖片，需要允許圖片網域（已預設本機與範例網域）：
+
+```ts
+// next.config.ts（節錄）
+images: {
+  remotePatterns: [
+    { protocol: 'http', hostname: 'localhost', port: '1337', pathname: '/uploads/**' },
+    { protocol: 'https', hostname: 'cms.maxlin.tw', pathname: '/uploads/**' },
+  ],
+},
+```
+
+### 3) Strapi 內容結構建議
+
+以 `Article` 為例（對應本專案新聞頁）：
+- `documentId`：供前端路由使用（本專案以此作為 `slug`）
+- `title`、`description`
+- `cover`：單一媒體（建議開啟多尺寸 `formats`）
+- `author`：關聯（含 `name`）
+- `category`：關聯（含 `name`, `slug`）
+- `blocks`：Dynamic Zone（例如 `shared.rich-text`, `shared.quote`, `shared.media`, `shared.slider`）
+
+Strapi 權限：請確保公開角色（Public）已允許 `Article` 的 `find` 與 `findOne`。
+
+### 4) API 介接
+
+本專案以 REST API 介接，常用端點如下：
+
+```text
+GET /api/articles?populate=*&pagination[page]=1&pagination[pageSize]=10
+GET /api/articles/:id?populate=*
+```
+
+單篇頁面以 `documentId` 作為路由參數，並於伺服器端讀取內容（含 60 秒 revalidate）：
+
+```ts
+// 片段：app/[locale]/news/[slug]/page.tsx（簡化）
+const getArticle = async (id: string) => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const res = await fetch(`${baseUrl}/api/articles/${id}?populate=*`, { next: { revalidate: 60 } });
+  if (!res.ok) return null;
+  const result = await res.json();
+  return result.data;
+};
+```
+
+### 5) 部署與最佳化
+
+- 建議於生產環境設置合理的 `Cache-Control` 與 Next.js `revalidate` 以減少 API 壓力
+- 若有自訂網域的 CMS 圖片，請記得同步更新 `next.config.ts` 的 `images.remotePatterns`
+- 需跨網域時，請於 Strapi 設定 CORS 允許你的前端網域
+
+### 6) 快速啟動 Strapi（可選）
+
+- 參考官方文件快速建立專案：[Strapi Quick Start](https://docs.strapi.io/dev-docs/quick-start)
+- 預設管理後台位址為 `http://localhost:1337/admin`
 
 ## 📁 專案結構
 
