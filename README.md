@@ -10,7 +10,8 @@
 - **Tailwind CSS 4** - 現代化的 CSS 框架
 - **國際化支援** - 使用 `next-intl` 進行多語言支援
 - **Headless CMS** - 整合 `Strapi`，附帶新聞列表與文章頁範例
-- **動畫系統** - 整合 GSAP 和 Lenis 實現流暢的滾動動畫
+- **GSAP 動畫** - 專業級動畫函式庫，支援複雜動畫序列和滾動觸發
+- **Lenis 滾動** - 流暢滾動函式庫，提供絲滑的滾動體驗
 - **3D 支援** - Three.js 整合，支援 3D 內容
 - **響應式設計** - 支援觸控友好的互動體驗
 - **開發工具** - ESLint、PostCSS 等開發工具預配置
@@ -259,9 +260,7 @@ export async function GET() {
 
 MIT License
 
-## 🙏 致謝
 
-感謝所有開源專案的貢獻者，讓這個 kickstarter 專案成為可能。
 
 ---
 
