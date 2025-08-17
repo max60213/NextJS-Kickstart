@@ -84,7 +84,7 @@ npm run lint
 
 ### 1) 環境變數
 
-請新增 `.env.local` 並設定 CMS API URL（擇一）：
+請新增 `.env` 檔案並設定 CMS API URL（擇一）：
 
 ```bash
 # 本機 Strapi（預設 port 1337）
